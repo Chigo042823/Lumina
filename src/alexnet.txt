@@ -1,0 +1,57 @@
+conv1: Conv2dConfig::new([3, 96], [11, 11])
+                .with_padding(burn::nn::PaddingConfig2d::Valid)
+                .with_stride([4, 4])
+                .init(device),
+            conv2: Conv2dConfig::new([96, 256], [5, 5])
+                .with_padding(burn::nn::PaddingConfig2d::Explicit(2, 2))
+                .with_stride([1, 1])
+                .init(device),
+            conv3: Conv2dConfig::new([256, 384], [3, 3])
+                .with_padding(burn::nn::PaddingConfig2d::Explicit(1, 1))
+                .with_stride([1, 1])
+                .init(device),
+            conv4: Conv2dConfig::new([384, 384], [3, 3])
+                .with_padding(burn::nn::PaddingConfig2d::Explicit(1, 1))
+                .with_stride([1, 1])
+                .init(device),
+            conv5: Conv2dConfig::new([384, 256], [3, 3])
+                .with_padding(burn::nn::PaddingConfig2d::Explicit(1, 1))
+                .with_stride([1, 1])
+                .init(device),
+            pool: MaxPool2dConfig::new([3,3])
+                .with_strides([2, 2])
+                .init(),
+            fc1: LinearConfig::new(6*6*256, 4096)
+                .init(device),
+            fc2: LinearConfig::new(4096, 4096)
+                .init(device),
+            fc3: LinearConfig::new(4096, 8)
+                .init(device),
+            activation: Relu::new(),
+
+            // Image
+        // 227x227x3 
+
+        // Conv 1
+        // 55x55x96
+        
+        // Max Pool
+        // 27x27x96
+
+        // Conv 2
+        // 27x27x256
+
+        // Max Pool
+        // 13x13x256
+
+        // Conv 3
+        // 13x13x384
+
+        // Conv 4
+        // 13x13x384
+
+        // Conv 5 
+        // 13x13x256
+
+        // Max Pooling 
+        // 6x6x256 (9216)
